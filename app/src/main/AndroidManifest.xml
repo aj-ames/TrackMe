@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".AppCont"
         android:allowBackup="true"
         android:icon="@drawable/track_me"
         android:label="@string/app_name"
