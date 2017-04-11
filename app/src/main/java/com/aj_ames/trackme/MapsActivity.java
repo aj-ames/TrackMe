@@ -63,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             longitude = gps.getLongitude();
             latitude = gps .getLatitude();
 
-            Toast.makeText(getApplicationContext(),"Longitude:"+Double.toString(longitude)+"\nLatitude:"+Double.toString(latitude),Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(),"Longitude:"+Double.toString(longitude)+"\nLatitude:"+Double.toString(latitude),Toast.LENGTH_LONG).show();
         }
         else
         {
@@ -76,6 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     */
 
         newlatlng = new LatLng(lat_url, lng_url);
+        //Toast.makeText(MapsActivity.this, String.valueOf(lat_url)+String.valueOf(lng_url),Toast.LENGTH_LONG).show();
         locator = (FloatingActionButton) findViewById(R.id.fab);
         locator.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,10 +92,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap)
+    {
         mMap = googleMap;
         Geocoder gc = new Geocoder(MapsActivity.this);
-        List<Address> list = null;
+        List<android.location.Address> list = null;
         try {
             list = gc.getFromLocation(latitude,longitude,1);
             newLat = latitude;
@@ -124,7 +126,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //LatLng latLng = marker.getPosition();
 
         try {
-            list = gc.getFromLocation(13.119053, 77.578741, 1);
+            list = gc.getFromLocation(lat_url, lng_url,1);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -135,14 +137,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String addressLine1 = add.getAddressLine(0);
         String addressLine2 = add.getAddressLine(2);
         mMap.addMarker(new MarkerOptions().position(ll).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)).title("Child's location ").snippet(addressLine1));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newlatlng, 22));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, 22));
 
         // Zoom in, animating the camera.
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
 
 
         float[] results = new float[1];
-        Location.distanceBetween(latitude, longitude, 13.119053, 77.578741, results);
+        Location.distanceBetween(latitude, longitude, lat_url, lng_url, results);
         float distance = results[0];
 
         double dist = (double) distance / 1000;
