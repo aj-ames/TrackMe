@@ -105,7 +105,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
             return;
         }
-        android.location.Address add =   list.get(0);
+        android.location.Address add = list.get(0);
         String addressLine1 = add.getAddressLine(1);
         String addressLine2 = add.getAddressLine(2);
         latLng= new LatLng(latitude, longitude);
